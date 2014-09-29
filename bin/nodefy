@@ -1,54 +1,126 @@
 #!/usr/bin/env node
 
-var nodefy = require('../index');
-var _cli = require('commander');
+// core
+var fs = require('fs');
 
-_cli
-    .version('0.2.0')
-    .description('convert AMD modules into node.js compatible modules.')
-    .usage('[options] [glob]')
-    .option('-o,--output <folder>', 'Output folder. If omitted it will output to stdout.')
-    .option('--verbose', 'Verbose output. Will log each processed file.')
-    .parse(process.argv);
+// 3rd party
+var cli = require('commander');
+
+// lib
+var nodefy = require('../lib/nodefy');
 
 
-if (_cli.args.length) {
+/* -----------------------------------------------------------------------------
+ * cli setup
+ * ---------------------------------------------------------------------------*/
 
-    var glob = _cli.args[0];
-    nodefy.batchConvert(glob, _cli.output, function(err, results){
-        if (err) throw err;
-        if (! _cli.output) {
-            results = results.map(function(r){
-                return r.result;
-            });
-            console.log( results.join('\n') );
-        } else if (_cli.verbose) {
-            results = results.map(function(r){
-                return ' - '+ r.outputPath;
-            });
-            console.log('Converted modules:');
-            console.log( results.join('\n') );
-        }
-    });
+cli.version('0.2.0');
+cli.description('convert AMD modules into node.js compatible modules.');
+cli.usage('[options] [glob]');
+cli.option('-o,--output <folder>', 'Output folder. If omitted it will output to stdout.');
+cli.option('--verbose', 'Verbose output. Will log each processed file.');
+cli.parse(process.argv);
 
-} else {
 
-    var buf = '';
+/* -----------------------------------------------------------------------------
+ * convertBatch
+ * ---------------------------------------------------------------------------*/
 
-    process.stdin.on('data', function(chunk){
-        buf += chunk;
-    });
+/**
+ * Convert batch.
+ */
+var convertBatch = function () {
+  var glob = cli.args[0];
 
-    process.stdin.on('end', function(){
-        var result = nodefy.parse(buf);
-        if (_cli.output) {
-            require('fs').writeFileSync(_cli.output, result);
-        } else {
-            console.log(result);
-        }
-    });
+  nodefy.convertBatch(glob, {
+    outputPath: cli.output
+  }, onBatchCompelte);
+};
 
-    process.stdin.resume();
+/**
+ * On complete, optional prints.
+ */
+var onBatchComplete = function (err, results) {
+  // fail
+  if (err) {
+    throw err;
+  }
 
-}
+  // if we did not write contents to file
+  // print them in console
+  if (!cli.output) {
+    printContents(results);
 
+  // else if verbose, print converted modules
+  // in console
+  } else if (cli.verbose) {
+    printModules(results);
+  }
+};
+
+/**
+ * Print converted contents to console.
+ */
+var printContents = function (results) {
+  results = results.map(function(r){
+    return r.result;
+  });
+
+  console.log(results.join('\n'));
+};
+
+/**
+ * Print converted module paths to console.
+ */
+var printModules = function () {
+  results = results.map(function(r){
+    return ' - '+ r.outputPath;
+  });
+
+  console.log('Converted modules:');
+  console.log( results.join('\n') );
+};
+
+
+/* -----------------------------------------------------------------------------
+ * convertData
+ * ---------------------------------------------------------------------------*/
+
+var buffer = '';
+
+/**
+ * Convert a stream of data.
+ */
+var convertData = function () {
+  process.stdin.on('data', onData);
+  process.stdin.on('end', onEnd);
+  process.stdin.resume();
+};
+
+/**
+ * On data add to buffer.
+ */
+var onData = function (data) {
+  buffer += chunk;
+};
+  
+/**
+ * On stream complete, write to file or print contents
+ * to console.
+ */
+var onEnd = function () {
+  var result = nodefy.parse(buffer);
+
+  return cli.output
+    ? fs.writeFileSync(cli.output, result)
+    : console.log(result);
+};
+
+
+/* -----------------------------------------------------------------------------
+ * run
+ * ---------------------------------------------------------------------------*/
+
+return cli.args.length
+  ? convertBatch()
+  : convertData();

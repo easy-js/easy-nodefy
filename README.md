@@ -14,13 +14,13 @@ This tool uses [Esprima](http://esprima.org/) to parse the code and replace
 ```js
 define(['foo', '../bar/baz'], function(foo, baz){
 
-    var lorem = 'ipsum';
+  var lorem = 'ipsum';
 
-    return {
-        log : function(){
-            console.log(lorem);
-        }
-    };
+  return {
+    log : function(){
+      console.log(lorem);
+    }
+  };
 
 });
 ```
@@ -28,16 +28,16 @@ define(['foo', '../bar/baz'], function(foo, baz){
 ### Output
 
 ```js
-    var foo = require('foo');
-    var baz = require('../bar/baz');
+  var foo = require('foo');
+  var baz = require('../bar/baz');
 
-    var lorem = 'ipsum';
+  var lorem = 'ipsum';
 
-    module.exports = {
-        log : function(){
-            console.log(lorem);
-        }
-    };
+  module.exports = {
+    log : function(){
+      console.log(lorem);
+    }
+  };
 ```
 
 
@@ -45,19 +45,25 @@ define(['foo', '../bar/baz'], function(foo, baz){
 
 You can use it as a CLI tool:
 
-    [sudo] npm install -g nodefy
-    nodefy -o cjs "src/**.js"
+```
+[sudo] npm install -g nodefy
+nodefy -o cjs "src/**.js"
+```
 
 This will convert all ".js" files inside the `src` folder and put the results
 on the `cjs` folder.
 
 It also works with `stdin` and `stdout`:
 
-    cat "src/foo.js" | nodefy
+```
+cat "src/foo.js" | nodefy
+```
 
 For a list of available options run:
 
-    nodefy -h
+```
+nodefy -h
+```
 
 
 ## Standalone Lib
@@ -74,13 +80,13 @@ var cjsModule = nodefy.parse(jsString);
 // nodefy.convert(inputPath [, outputPath], callback)
 // if outputPath is omitted it won't write the result
 nodefy.convert('foo.js', function(err, result){
-    console.log(result);
+  console.log(result);
 });
 
 // nodefy.batchConvert(glob [, outputFolder], callback)
 // if outputFolder is omitted it won't write the result
 nodefy.batchConvert('src/**.js', 'cjs', function(err, results){
-    // results is an array of {sourcePath, outputPath, result}
+  // results is an array of {sourcePath, outputPath, result}
 });
 ```
 
@@ -129,4 +135,3 @@ tracker](https://github.com/millermedeiros/nodefy/issues).
 ## License
 
 Released under the MIT license
-

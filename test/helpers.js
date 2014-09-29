@@ -1,45 +1,96 @@
+/*!
+ * test/helpers.js
+ * 
+ * Copyright (c) 2014
+ */
+
+// core
+var fs = require('fs');
+var path = require('path');
+
+// 3rd party
+var rimraf = require('rimraf');
+
+
+/* -----------------------------------------------------------------------------
+ * scope
+ * ---------------------------------------------------------------------------*/
 
 var SHOULD_PURGE = true;
 
-// ---
 
-var _fs = require('fs');
-var _path = require('path');
+/* -----------------------------------------------------------------------------
+ * helpers
+ * ---------------------------------------------------------------------------*/
 
-// ---
+var helpers = {
 
+  /**
+   * Read file with `-in` postfix inside `test/files` directory.
+   *
+   * @public
+   *
+   * @param {string} id - File id. 
+   */
+  readIn: function(id) {
+    return helpers.readFile(__dirname +'/files/'+  id +'-in.js');
+  },
 
-exports.readIn = function(id){
-    return exports.readFile( __dirname +'/files/'+  id +'-in.js' );
-};
+  /**
+   * Read file with `-out` postfix inside `test/files` directory.
+   *
+   * @public
+   *
+   * @param {string} id - File id. 
+   */
+  readOut: function(id) {
+    return helpers.readFile(__dirname +'/files/'+  id +'-out.js');
+  },
 
+  /**
+   * Read file sync and return contents as string.
+   *
+   * @public
+   *
+   * @param {string} filePath - Path of file to read. 
+   */
+  readFile: function(filePath) {
+    return fs.readFileSync(filePath).toString();
+  },
 
-exports.readOut = function(id){
-    return exports.readFile( __dirname +'/files/'+  id +'-out.js' );
-};
+  /**
+   * Remove directory and contents.
+   *
+   * @public
+   *
+   * @param {string} directoryPath - Path of directory to remove. 
+   */
+  purge: function(directoryPath) {
+    if (!SHOULD_PURGE) {
+      return
+    };
 
+    rimraf.sync(directoryPath);
+  },
 
-exports.readFile = function(path){
-    return _fs.readFileSync(path).toString();
-};
-
-
-exports.purge = function(dir){
-    if (! SHOULD_PURGE) return;
-    _fs.readdirSync(dir).forEach(function(relPath){
-        var path = _path.join(dir, relPath);
-        if ( _fs.statSync(path).isDirectory() ){
-            exports.purge(path);
-        } else {
-            _fs.unlinkSync(path);
-        }
-    });
-    _fs.rmdirSync( dir );
-};
-
-
-exports.mkdir = function(dir){
-    if (! _fs.existsSync(dir) ) {
-        _fs.mkdirSync(dir);
+  /**
+   * Make directory if it does not already exist.
+   *
+   * @public
+   *
+   * @param {string} directoryPath - Path of directory to create. 
+   */
+  mkdir: function(directoryPath) {
+    if (!fs.existsSync(directoryPath)) {
+      fs.mkdirSync(directoryPath);
     }
+  }
+
 };
+
+
+/* -----------------------------------------------------------------------------
+ * export
+ * ---------------------------------------------------------------------------*/
+
+module.exports = helpers;

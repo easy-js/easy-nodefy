@@ -2,37 +2,44 @@
   "name": "nodefy",
   "version": "0.2.2",
   "description": "convert AMD modules into a node.js compatible format",
-  "main": "index.js",
+  "main": "src/nodefy.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node test"
+    "test": "./node_modules/.bin/jasmine-node test --verbose"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/millermedeiros/nodefy.git"
   },
-  "keywords": [ "amd", "cjs", "modules", "convert" ],
+  "keywords": [
+    "amd",
+    "cjs",
+    "modules",
+    "convert"
+  ],
   "author": {
-    "name" : "Miller Medeiros",
-    "url" : "http://blog.millermedeiros.com/"
+    "name": "Miller Medeiros",
+    "url": "http://blog.millermedeiros.com/"
   },
-  "dependencies" : {
-    "esprima" : ">= 1.0 <1.2",
-    "glob" : "~3.1.14",
-    "async" : "~0.1.22",
-    "commander" : "~1.1.0",
-    "mkdirp" : "~0.3.4"
+  "dependencies": {
+    "async": "~0.1.22",
+    "commander": "~1.1.0",
+    "esprima": ">= 1.0 <1.2",
+    "glob": "~3.1.14",
+    "mkdirp": "~0.3.4",
+    "underscore": "^1.6.0"
   },
-  "devDependencies" : {
-    "jasmine-node" : "1.x"
+  "devDependencies": {
+    "jasmine-node": "1.x",
+    "rimraf": "^2.2.8"
   },
-  "bin" : {
-    "nodefy" : "bin/nodefy"
+  "bin": {
+    "nodefy": "bin/nodefy"
   },
-  "engine" : {
-    "node" : ">= 0.8"
+  "engine": {
+    "node": ">= 0.8"
   },
   "license": "MIT"
 }
