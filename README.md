@@ -1,4 +1,5 @@
-# easy-nodefy
+easy-nodefy [![Build Status](https://travis-ci.org/easy-js/easy-nodefy.svg)](https://travis-ci.org/easy-js/easy-nodefy)
+-----------
 
 Convert AMD modules into commonjs format. Used in [easy-build](https://github.com/easy-js/easy-build) to create commonjs distributions.
 
