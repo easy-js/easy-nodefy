@@ -68,4 +68,12 @@ describe('parse', function () {
     expect(output).toEqual(readOut('nested/deep/plugin'));
   });
 
+  it('should convert mapped modules.', function () {
+    var output = nodefy.parse(readIn('mapped'), {
+      map: { 'foo': 'i/am/mapped' }
+    });
+    expect(output).toMatch(/require\(['"]\w/);
+    expect(output).toEqual(readOut('mapped'));
+  });
+
 });
