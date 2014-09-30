@@ -1,8 +1,8 @@
 {
-  "name": "nodefy",
+  "name": "easy-nodefy",
   "version": "0.2.2",
   "description": "convert AMD modules into a node.js compatible format",
-  "main": "src/nodefy.js",
+  "main": "lib/nodefy.js",
   "directories": {
     "test": "test"
   },
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/millermedeiros/nodefy.git"
+    "url": "https://github.com/easy-js/easy-nodefy.git"
   },
   "keywords": [
     "amd",
@@ -20,8 +20,7 @@
     "convert"
   ],
   "author": {
-    "name": "Miller Medeiros",
-    "url": "http://blog.millermedeiros.com/"
+    "name": "Jarid Margolin",
   },
   "dependencies": {
     "async": "~0.1.22",
