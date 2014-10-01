@@ -3,9 +3,7 @@ easy-nodefy [![Build Status](https://travis-ci.org/easy-js/easy-nodefy.svg)](htt
 
 Convert AMD modules into commonjs format. Used in [easy-build](https://github.com/easy-js/easy-build) to create commonjs distributions.
 
-**This tool aims to convert basic modules**, plugins and advanced settings
-probably are NOT going to be supported in the near future (I have plans to
-support basic configs. Check the [uRequire](https://github.com/anodynos/uRequire) project in case you need something more complex.
+**This tool aims to convert basic modules**: There is support for basic configuration (map/paths), but plugins and advanced settings probably are NOT going to be supported in the near future. Check [uRequire](https://github.com/anodynos/uRequire) if you need something more complex.
 
 **Originally adapted from** [millermedeiros/nodefy](https://github.com/millermedeiros/nodefy)
 #### Example Usage
