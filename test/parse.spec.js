@@ -68,9 +68,21 @@ describe('parse', function () {
     expect(output).toEqual(readOut('nested/deep/plugin'));
   });
 
-  it('should convert mapped modules.', function () {
+  it('should convert dependencies with paths', function () {
+    var output = nodefy.parse(readIn('paths'), {
+      paths: { 'foo': 'i/am/from/paths' },
+      relDir: __dirname +'/files',
+      baseDir: process.cwd()
+    });
+    expect(output).toMatch(/require\(['"]\w/);
+    expect(output).toEqual(readOut('paths'));
+  });
+
+  it('should convert mapped dependencies.', function () {
     var output = nodefy.parse(readIn('mapped'), {
-      map: { 'foo': 'i/am/mapped' }
+      map: { '*': { 'foo': 'i/am/mapped' } },
+      relDir: __dirname +'/files',
+      baseDir: process.cwd()
     });
     expect(output).toMatch(/require\(['"]\w/);
     expect(output).toEqual(readOut('mapped'));

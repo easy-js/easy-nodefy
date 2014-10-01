@@ -1,14 +1,13 @@
 // test comment
-var foo = require('i/am/mapped');
-var baz = require('/bar/baz');
+define(['foo', '../bar/baz'], function (foo, baz) {
 
     // another comment
     var ipsum = 'dolor amet';
 
-    module.exports = {
+    return {
         doFoo: function(){
             foo.bar( baz.dolor, ipsum );
         }
     };
-
+});
 

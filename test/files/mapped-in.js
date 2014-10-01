@@ -1,5 +1,5 @@
 // test comment
-define(['foo', '../bar/baz'], function (foo, baz) {
+define(['foo', '/bar/baz'], function (foo, baz) {
 
     // another comment
     var ipsum = 'dolor amet';

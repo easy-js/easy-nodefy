@@ -106,6 +106,20 @@ describe('convert', function () {
       });
     });
 
+    it('should pass options for map/paths', function (done) {
+      var inPath = path.join(INPUT_DIR, 'paths-in.js');
+      var outPath = path.join(TEMP_DIR, 'paths-out.js');
+      nodefy.convertFile(inPath, {
+        outputPath: outPath,
+        paths: { 'foo': 'i/am/from/paths' },
+        baseDir: process.cwd()
+      }, function(err, result){
+        expect(err).toBe(null);
+        expect(readFile(outPath)).toEqual(readOut('paths'));
+        done();
+      });
+    });
+
   });
   
   /* ---------------------------------------------------------------------------

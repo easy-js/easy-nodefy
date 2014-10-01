@@ -20,9 +20,10 @@
     "convert"
   ],
   "author": {
-    "name": "Jarid Margolin",
+    "name": "Jarid Margolin"
   },
   "dependencies": {
+    "amd-resolve": "git://github.com/jaridmargolin/amd-resolve.git#0.2.0",
     "async": "~0.1.22",
     "commander": "~1.1.0",
     "esprima": ">= 1.0 <1.2",
