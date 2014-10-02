@@ -1,6 +1,6 @@
 {
   "name": "easy-nodefy",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "convert AMD modules into a node.js compatible format",
   "main": "lib/nodefy.js",
   "directories": {
