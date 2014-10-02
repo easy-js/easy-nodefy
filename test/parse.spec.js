@@ -72,7 +72,7 @@ describe('parse', function () {
     var output = nodefy.parse(readIn('paths'), {
       paths: { 'foo': 'i/am/from/paths' },
       relDir: __dirname +'/files',
-      baseDir: process.cwd()
+      baseDir: './'
     });
     expect(output).toMatch(/require\(['"]\w/);
     expect(output).toEqual(readOut('paths'));
@@ -82,7 +82,7 @@ describe('parse', function () {
     var output = nodefy.parse(readIn('mapped'), {
       map: { '*': { 'foo': 'i/am/mapped' } },
       relDir: __dirname +'/files',
-      baseDir: process.cwd()
+      baseDir: './'
     });
     expect(output).toMatch(/require\(['"]\w/);
     expect(output).toEqual(readOut('mapped'));
