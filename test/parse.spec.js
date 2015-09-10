@@ -36,7 +36,10 @@ describe('parse', function () {
   });
 
   it('should convert simplified CJS modules', function () {
-    var output = nodefy.parse(readIn('simplified_cjs'));
+    var output = nodefy.parse(readIn('simplified_cjs'), {
+      paths: { 'foo': 'foo/bar' },
+      baseDir: './'
+    });
     expect(output).toMatch(/require\(['"]\w/);
     expect(output).toEqual(readOut('simplified_cjs'));
   });

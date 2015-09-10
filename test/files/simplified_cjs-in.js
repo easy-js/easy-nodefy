@@ -1,4 +1,4 @@
-define(function (require, exports, module) {
+define(function (require) {
 
     var foo = require('foo');
 
